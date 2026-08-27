@@ -12,8 +12,66 @@ export const site = {
     'Junior Software Engineer at ALTISE Technologies, building Slotani, a booking and queue-management SaaS.',
   contactHeadline: 'Turning complex problems into simple products.',
   contactNote: 'Open to remote software engineering and product roles.',
+  showContactNote: false,
   email: 'rahulbarahi.connect@gmail.com',
   resume: '/resume.pdf',
+  resumeLabel: 'View Resume',
+  copyrightYear: 2024,
+  socials: [
+    { label: 'GitHub', href: 'https://github.com/rahulbarahi', icon: 'github' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/rahulbarahi', icon: 'linkedin' },
+    { label: 'X', href: 'https://x.com/rahulbarahi', icon: 'x' },
+  ],
+}
+
+export const nav = [
+  { hash: 'about', label: 'About' },
+  { hash: 'skills', label: 'Skills' },
+  { hash: 'experience', label: 'Experience' },
+  { hash: 'work', label: 'Work' },
+  { hash: 'contact', label: 'Drop a line' },
+]
+
+export const labels = {
+  workCta: 'Work',
+  about: 'About',
+  skills: 'Skills',
+  experience: 'Experience',
+  work: 'Selected work',
+  process: 'Process',
+  contact: 'Drop me a line',
+  liveDemo: 'Live Demo',
+  github: 'GitHub',
+  techStack: 'Tech stack',
+  built: 'What I built',
+  challenge: 'Challenge',
+  workBack: 'Work',
+  formEyebrow: 'Work',
+  formTitle: 'Tell me about the project',
+  formName: 'Name',
+  formEmail: 'Email',
+  formProject: 'Project',
+  formMessage: 'Message',
+  formPlaceholder: 'Web, mobile, AI, or something else',
+  formSend: 'Send',
+  formClose: 'Close',
+  notFound: 'Page not found',
+  notFoundBody:
+    'This page doesn’t exist — or it moved. Head home and keep looking around.',
+  backHome: 'Back home',
+  viewWork: 'View work',
+}
+
+export const roles = [
+  { line1: 'Software', line2: 'Engineer' },
+  { line1: 'Full Stack', line2: 'Developer' },
+  { line1: 'Mobile App', line2: 'Developer' },
+  { line1: 'AI', line2: 'Engineer' },
+  { line1: 'UI / UX', line2: 'Designer' },
+]
+
+export function nextRoleIndex(index, length = roles.length) {
+  return (index + 1) % length
 }
 
 export const projects = [
@@ -99,6 +157,35 @@ export const projects = [
 export function getProjectBySlug(slug) {
   return projects.find((project) => project.slug === slug)
 }
+
+export const experience = [
+  {
+    id: '01',
+    role: 'Junior Software Engineer',
+    company: 'ALTISE Technologies',
+    location: 'Nepal',
+    period: 'Present',
+    summary:
+      'Building Slotani, a booking and queue-management SaaS across web, mobile, and backend.',
+    points: [
+      'React Native, React, Node.js, and PostgreSQL across the product',
+      'Authentication, Google Sign-In, and notification routing',
+      'Production debugging, QA environments, and mobile release workflows',
+    ],
+  },
+  {
+    id: '02',
+    role: 'Freelance App Developer',
+    company: 'Fiverr',
+    location: 'Remote',
+    period: '',
+    summary: 'Freelance app development for clients on Fiverr.',
+    points: [
+      'Mobile and web app builds for clients',
+      'End-to-end delivery from interface to working product',
+    ],
+  },
+]
 
 export const skillGroups = [
   {

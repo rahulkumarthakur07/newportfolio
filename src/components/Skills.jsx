@@ -1,11 +1,11 @@
 import Reveal from './Reveal'
-import { skillGroups } from '../lib/content'
+import { labels, skillGroups } from '../lib/content'
 
 export default function Skills() {
   return (
     <section id="skills" className="px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
       <Reveal>
-        <p className="mb-14 text-sm tracking-[0.18em] uppercase">Skills</p>
+        <p className="mb-14 text-sm tracking-[0.18em] uppercase">{labels.skills}</p>
       </Reveal>
 
       <div className="grid gap-12 sm:grid-cols-2 xl:grid-cols-4">

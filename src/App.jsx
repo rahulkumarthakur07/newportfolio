@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from './context/ThemeContext'
 import SmoothScroll from './components/SmoothScroll'
@@ -5,8 +6,13 @@ import Navbar from './components/Navbar'
 import HomePage from './pages/HomePage'
 import ProjectPage from './pages/ProjectPage'
 import NotFound from './pages/NotFound'
+import { site } from './lib/content'
 
 function App() {
+  useEffect(() => {
+    document.title = `${site.name} — ${site.role}`
+  }, [])
+
   return (
     <BrowserRouter>
       <ThemeProvider>

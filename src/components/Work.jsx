@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Reveal from './Reveal'
-import { projects } from '../lib/content'
+import { labels, projects } from '../lib/content'
 
 const PREVIEW_WIDTH = 300
 
@@ -26,7 +26,7 @@ export default function Work() {
     <section id="work" className="px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
       <Reveal>
         <div className="mb-12 flex items-end justify-between gap-6">
-          <p className="text-sm tracking-[0.18em] uppercase">Selected work</p>
+          <p className="text-sm tracking-[0.18em] uppercase">{labels.work}</p>
           <p className="text-sm text-ink/50 dark:text-ink-dark/50">{count}</p>
         </div>
       </Reveal>

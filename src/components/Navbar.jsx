@@ -2,16 +2,9 @@ import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
-import { site } from '../lib/content'
+import { labels, nav, site } from '../lib/content'
 import { scrollToId } from '../lib/scroll'
 import WorkForm from './WorkForm'
-
-const links = [
-  { hash: 'about', label: 'About' },
-  { hash: 'skills', label: 'Skills' },
-  { hash: 'work', label: 'Work' },
-  { hash: 'contact', label: 'Drop a line' },
-]
 
 function SunIcon() {
   return (
@@ -128,8 +121,8 @@ export default function Navbar() {
           {site.name}
         </Link>
 
-        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 text-[15px] tracking-[-0.01em] md:flex">
-          {links.map((link) => (
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 text-[15px] tracking-[-0.01em] md:flex lg:gap-8">
+          {nav.map((link) => (
             <NavLink
               key={link.hash}
               {...link}
@@ -170,7 +163,7 @@ export default function Navbar() {
             aria-label="Open work form"
             whileTap={{ scale: 0.98 }}
           >
-            Work
+            {labels.workCta}
           </motion.button>
 
           <button
@@ -194,7 +187,7 @@ export default function Navbar() {
             transition={{ duration: 0.28 }}
             className="pointer-events-auto mx-5 mb-4 flex flex-col gap-5 bg-ink px-6 py-7 text-lg text-canvas dark:bg-ink-dark dark:text-canvas-dark md:hidden"
           >
-            {links.map((link) => (
+            {nav.map((link) => (
               <a
                 key={link.hash}
                 href={`/#${link.hash}`}
@@ -208,7 +201,7 @@ export default function Navbar() {
               onClick={openForm}
               className="mt-1 inline-flex cursor-pointer items-center justify-center border border-current px-5 py-2.5 text-[15px]"
             >
-              Work
+              {labels.workCta}
             </button>
           </motion.nav>
         )}

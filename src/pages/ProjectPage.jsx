@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { getProjectBySlug } from '../lib/content'
+import { getProjectBySlug, labels } from '../lib/content'
 import NotFound from './NotFound'
 
 function ExternalButton({ href, children, filled = false }) {
@@ -38,7 +38,7 @@ export default function ProjectPage() {
         to="/#work"
         className="inline-flex text-sm tracking-[-0.01em] text-ink/60 transition-opacity hover:text-ink dark:text-ink-dark/60 dark:hover:text-ink-dark"
       >
-        ← Work
+        ← {labels.workBack}
       </Link>
 
       <div className="mt-10 grid items-start gap-10 lg:mt-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-16">
@@ -62,12 +62,12 @@ export default function ProjectPage() {
 
           <div className="mt-8 flex flex-wrap gap-3">
             <ExternalButton href={project.demo} filled>
-              Live Demo
+              {labels.liveDemo}
             </ExternalButton>
-            <ExternalButton href={project.github}>GitHub</ExternalButton>
+            <ExternalButton href={project.github}>{labels.github}</ExternalButton>
           </div>
 
-          <p className="mt-10 text-sm tracking-[0.18em] uppercase">Tech stack</p>
+          <p className="mt-10 text-sm tracking-[0.18em] uppercase">{labels.techStack}</p>
           <ul className="mt-4 flex flex-wrap gap-2">
             {project.tech.map((item) => (
               <li
@@ -83,7 +83,7 @@ export default function ProjectPage() {
 
       <div className="mt-16 grid gap-12 border-t border-ink/15 pt-12 dark:border-ink-dark/15 md:grid-cols-2 lg:mt-24 lg:gap-20">
         <div>
-          <p className="text-sm tracking-[0.18em] uppercase">What I built</p>
+          <p className="text-sm tracking-[0.18em] uppercase">{labels.built}</p>
           <ul className="mt-5 space-y-3 text-[16px] leading-relaxed">
             {project.built.map((item) => (
               <li key={item} className="pl-4 -indent-4">
@@ -93,7 +93,7 @@ export default function ProjectPage() {
           </ul>
         </div>
         <div>
-          <p className="text-sm tracking-[0.18em] uppercase">Challenge</p>
+          <p className="text-sm tracking-[0.18em] uppercase">{labels.challenge}</p>
           <p className="mt-5 max-w-md text-[16px] leading-relaxed text-ink/75 dark:text-ink-dark/75">
             {project.challenge}
           </p>

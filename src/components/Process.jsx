@@ -1,11 +1,11 @@
 import Reveal from './Reveal'
-import { steps } from '../lib/content'
+import { labels, steps } from '../lib/content'
 
 export default function Process() {
   return (
     <section id="process" className="px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
       <Reveal>
-        <p className="mb-14 text-sm tracking-[0.18em] uppercase">Process</p>
+        <p className="mb-14 text-sm tracking-[0.18em] uppercase">{labels.process}</p>
       </Reveal>
 
       <div className="grid gap-12 sm:grid-cols-2 xl:grid-cols-4 xl:gap-8">

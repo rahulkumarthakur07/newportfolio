@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { nextRoleIndex, roles } from '../lib/roles'
-import { site } from '../lib/content'
+import { nextRoleIndex, roles, site } from '../lib/content'
 
 const lineTransition = {
   duration: 0.85,
   ease: [0.22, 1, 0.36, 1],
 }
+
+const line1Class = 'whitespace-nowrap text-[clamp(2.6rem,10.5vw,10.5rem)]'
+const line2Class = 'whitespace-nowrap text-[clamp(3.2rem,12.4vw,12.2rem)]'
+const line1Sizers = [...new Set(roles.map((role) => role.line1))]
+const line2Sizers = [...new Set(roles.map((role) => role.line2))]
 
 function HeroLine({ text, className, delay = 0 }) {
   return (
@@ -27,6 +31,27 @@ function HeroLine({ text, className, delay = 0 }) {
         {text}
       </motion.span>
     </motion.span>
+  )
+}
+
+function TitleSlot({ text, className, delay = 0, sizers, slotKey }) {
+  return (
+    <span className="relative grid w-max justify-items-start">
+      {sizers.map((sizer) => (
+        <span
+          key={sizer}
+          aria-hidden="true"
+          className={`invisible col-start-1 row-start-1 block py-[0.16em] leading-[0.95] ${className}`}
+        >
+          {sizer}
+        </span>
+      ))}
+      <span className="absolute inset-0">
+        <AnimatePresence mode="wait">
+          <HeroLine key={slotKey} text={text} className={className} delay={delay} />
+        </AnimatePresence>
+      </span>
+    </span>
   )
 }
 
@@ -51,31 +76,29 @@ export default function Hero() {
         className="font-display font-bold tracking-[-0.045em] text-ink dark:text-ink-dark"
         aria-live="polite"
       >
-        <AnimatePresence mode="wait">
-          <HeroLine
-            key={`line1-${index}`}
-            text={role.line1}
-            className="text-[clamp(2.6rem,10.5vw,10.5rem)]"
-          />
-        </AnimatePresence>
+        <TitleSlot
+          text={role.line1}
+          className={line1Class}
+          sizers={line1Sizers}
+          slotKey={index}
+        />
 
         <span className="-mt-[0.3em] flex flex-col items-start gap-5 sm:flex-row sm:items-end sm:gap-10">
-          <AnimatePresence mode="wait">
-            <HeroLine
-              key={`line2-${index}`}
-              text={role.line2}
-              delay={0.08}
-              className="text-[clamp(3.2rem,12.4vw,12.2rem)]"
-            />
-          </AnimatePresence>
-          <span className="flex max-w-[16.5rem] flex-col items-start gap-4 pb-3 font-normal sm:pb-5 lg:pb-7">
+          <TitleSlot
+            text={role.line2}
+            className={line2Class}
+            delay={0.08}
+            sizers={line2Sizers}
+            slotKey={index}
+          />
+          <span className="flex w-[16.5rem] shrink-0 flex-col items-start gap-4 pb-3 font-normal sm:pb-5 lg:pb-7">
             <a
               href={site.resume}
               target="_blank"
               rel="noreferrer"
               className="inline-flex min-h-10 items-center border border-current px-5 py-2 text-[14px] tracking-[-0.01em] transition-colors duration-200 hover:bg-ink hover:text-canvas dark:hover:bg-ink-dark dark:hover:text-canvas-dark"
             >
-              View Resume
+              {site.resumeLabel}
             </a>
             <p className="text-[15px] leading-[1.45] tracking-normal">
               {site.heroSupport}
