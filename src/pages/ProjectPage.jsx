@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { getProjectBySlug, labels } from '../lib/content'
+import { getOtherProjects, getProjectBySlug, getProjectImage, labels } from '../lib/content'
 import NotFound from './NotFound'
 
 function ExternalButton({ href, children, filled = false }) {
@@ -27,15 +27,19 @@ function ExternalButton({ href, children, filled = false }) {
 export default function ProjectPage() {
   const { slug } = useParams()
   const project = getProjectBySlug(slug)
+  const others = getOtherProjects(slug)
 
   if (!project) {
     return <NotFound />
   }
 
   return (
-    <article className="px-5 pb-24 pt-28 sm:px-8 lg:px-12 lg:pb-32 lg:pt-36">
+    <article
+      key={project.slug}
+      className="px-5 pb-24 pt-28 sm:px-8 lg:px-12 lg:pb-32 lg:pt-36"
+    >
       <Link
-        to="/#work"
+        to="/work"
         className="inline-flex text-sm tracking-[-0.01em] text-ink/60 transition-opacity hover:text-ink dark:text-ink-dark/60 dark:hover:text-ink-dark"
       >
         ← {labels.workBack}
@@ -43,7 +47,7 @@ export default function ProjectPage() {
 
       <div className="mt-10 grid items-start gap-10 lg:mt-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-16">
         <motion.img
-          src={project.image}
+          src={getProjectImage(project)}
           alt={project.name}
           className="aspect-[4/3] w-full border border-ink/10 object-cover dark:border-ink-dark/10"
           initial={{ opacity: 0, y: 20 }}
@@ -99,6 +103,30 @@ export default function ProjectPage() {
           </p>
         </div>
       </div>
+
+      {others.length > 0 ? (
+        <section className="mt-20 border-t border-ink/15 pt-12 dark:border-ink-dark/15 lg:mt-28">
+          <p className="text-sm tracking-[0.18em] uppercase">{labels.otherProjects}</p>
+          <ul className="mt-8 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
+            {others.map((item) => (
+              <li key={item.slug}>
+                <Link to={`/work/${item.slug}`} className="group block">
+                  <img
+                    src={getProjectImage(item)}
+                    alt={item.name}
+                    className="aspect-[4/3] w-full border border-ink/10 object-cover transition-opacity duration-300 group-hover:opacity-75 dark:border-ink-dark/10"
+                  />
+                  <p className="mt-4 text-sm text-ink/45 dark:text-ink-dark/45">{item.id}</p>
+                  <h2 className="font-display mt-2 text-[1.4rem] font-medium tracking-[-0.03em]">
+                    {item.name}
+                  </h2>
+                  <p className="mt-2 text-sm text-ink/55 dark:text-ink-dark/55">{item.tags}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
     </article>
   )
 }

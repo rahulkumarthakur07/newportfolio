@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Reveal from './Reveal'
-import { labels, projects } from '../lib/content'
+import { getProjectImage, labels, projects } from '../lib/content'
 
 const PREVIEW_WIDTH = 300
 
@@ -27,7 +27,15 @@ export default function Work() {
       <Reveal>
         <div className="mb-12 flex items-end justify-between gap-6">
           <p className="text-sm tracking-[0.18em] uppercase">{labels.work}</p>
-          <p className="text-sm text-ink/50 dark:text-ink-dark/50">{count}</p>
+          <div className="flex items-center gap-5">
+            <p className="text-sm text-ink/50 dark:text-ink-dark/50">{count}</p>
+            <Link
+              to="/work"
+              className="text-sm tracking-[-0.01em] text-ink/70 transition-colors hover:text-ink dark:text-ink-dark/70 dark:hover:text-ink-dark"
+            >
+              {labels.seeAll} →
+            </Link>
+          </div>
         </div>
       </Reveal>
 
@@ -75,7 +83,7 @@ export default function Work() {
                 transition={{ duration: 0.16, ease: 'easeOut' }}
               >
                 <img
-                  src={active.image}
+                  src={getProjectImage(active, 'hover')}
                   alt={active.name}
                   className="aspect-[4/3] h-auto w-full object-cover"
                 />

@@ -28,7 +28,7 @@ export const nav = [
   { hash: 'about', label: 'About' },
   { hash: 'skills', label: 'Skills' },
   { hash: 'experience', label: 'Experience' },
-  { hash: 'work', label: 'Work' },
+  { hash: 'work', label: 'Projects' },
   { hash: 'contact', label: 'Drop a line' },
 ]
 
@@ -37,7 +37,9 @@ export const labels = {
   about: 'About',
   skills: 'Skills',
   experience: 'Experience',
-  work: 'Selected work',
+  work: 'Selected projects',
+  allWork: 'All projects',
+  seeAll: 'See all',
   process: 'Process',
   contact: 'Drop me a line',
   liveDemo: 'Live Demo',
@@ -45,7 +47,9 @@ export const labels = {
   techStack: 'Tech stack',
   built: 'What I built',
   challenge: 'Challenge',
-  workBack: 'Work',
+  workBack: 'Projects',
+  back: 'Back',
+  otherProjects: 'Other projects',
   formEyebrow: 'Work',
   formTitle: 'Tell me about the project',
   formName: 'Name',
@@ -59,7 +63,7 @@ export const labels = {
   notFoundBody:
     'This page doesn’t exist — or it moved. Head home and keep looking around.',
   backHome: 'Back home',
-  viewWork: 'View work',
+  viewWork: 'View projects',
 }
 
 export const roles = [
@@ -81,6 +85,7 @@ export const projects = [
     name: 'Slotani',
     tags: 'Booking SaaS · React Native · Node.js · PostgreSQL',
     image: '/projects/slotani.png',
+    hoverImage: '/projects/slotani.png',
     summary:
       'A booking and queue-management SaaS for businesses that need digital queues, outlets, customers, and notifications.',
     built: [
@@ -99,19 +104,31 @@ export const projects = [
     id: '02',
     slug: 'prepswipe',
     name: 'Prepswipe',
-    tags: 'Learning app · React · Vite · Flashcards',
+    tags: 'Mobile learning · React Native · Expo · Flashcards',
     image: '/projects/prepswipe.png',
+    hoverImage: '/projects/prepswipe.png',
     summary:
-      'A flashcard product with swipe-based revision and a visual, cartoon-inspired 2D interface so studying feels like a game, not a chore.',
+      'A mobile flashcard app with swipe-based revision and a visual, cartoon-inspired 2D interface so studying feels like a game, not a chore.',
     built: [
-      'Swipe-based flashcard interactions',
-      'A distinct 2D visual direction for revision',
-      'Frontend architecture in React and Vite',
+      'Swipe-based flashcard interactions in React Native and Expo',
+      'A distinct 2D visual direction for revision with Nativewind',
+      'Client state and API layer with Redux and Axios',
+      'A Node.js, Express, PostgreSQL, and Prisma backend',
     ],
-    tech: ['React', 'Vite'],
+    tech: [
+      'React Native',
+      'Expo',
+      'Nativewind',
+      'Axios',
+      'Redux',
+      'Node.js',
+      'Express',
+      'PostgreSQL',
+      'Prisma',
+    ],
     challenge:
       'Making study and revision feel engaging without burying the actual learning under decoration.',
-    demo: '',
+    demo: 'https://play.google.com/store/apps/details?id=com.appdevxyronix.co.PrepSwipe&pcampaignid=web_share',
     github: '',
   },
   {
@@ -120,6 +137,7 @@ export const projects = [
     name: 'Mindra',
     tags: 'Mobile productivity · React Native · Expo · AI',
     image: '/projects/mindra.png',
+    hoverImage: '/projects/mindra.png',
     summary:
       'A mobile life assistant built around contextual reminders and scenario checklists — office to home, travel, treks, and more.',
     built: [
@@ -139,6 +157,7 @@ export const projects = [
     name: 'QR Menu',
     tags: 'SaaS concept · QR flows · Product UX',
     image: '/projects/qrmenu.png',
+    hoverImage: '/projects/qrmenu.png',
     summary:
       'A digital restaurant menu concept: one reusable QR, the system decides the outlet, and the guest never sees the wrong menu.',
     built: [
@@ -156,6 +175,16 @@ export const projects = [
 
 export function getProjectBySlug(slug) {
   return projects.find((project) => project.slug === slug)
+}
+
+export function getOtherProjects(slug) {
+  return projects.filter((project) => project.slug !== slug)
+}
+
+export function getProjectImage(project, kind = 'detail') {
+  if (!project) return ''
+  if (kind === 'hover') return project.hoverImage || project.image || ''
+  return project.image || project.hoverImage || ''
 }
 
 export const experience = [

@@ -8,7 +8,7 @@ export default function Skills() {
         <p className="mb-14 text-sm tracking-[0.18em] uppercase">{labels.skills}</p>
       </Reveal>
 
-      <div className="grid gap-12 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-x-5 gap-y-10 sm:gap-12 xl:grid-cols-4">
         {skillGroups.map((group, index) => (
           <Reveal key={group.label} delay={index * 0.06}>
             <p className="text-sm text-ink/45 dark:text-ink-dark/45">{group.label}</p>

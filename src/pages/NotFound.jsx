@@ -21,7 +21,7 @@ export default function NotFound() {
           {labels.backHome}
         </Link>
         <Link
-          to="/#work"
+          to="/work"
           className="inline-flex items-center border border-current px-5 py-2.5 text-[14px] tracking-[-0.01em] transition-colors hover:bg-ink hover:text-canvas dark:hover:bg-ink-dark dark:hover:text-canvas-dark"
         >
           {labels.viewWork}
