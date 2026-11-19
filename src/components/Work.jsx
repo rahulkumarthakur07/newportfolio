@@ -7,7 +7,10 @@ import { getProjectImage, labels, projects } from '../lib/content'
 
 const PREVIEW_WIDTH = 300
 
+const LANDING_PROJECT_COUNT = 5
+
 export default function Work() {
+  const featured = projects.slice(0, LANDING_PROJECT_COUNT)
   const count = String(projects.length).padStart(2, '0')
   const [active, setActive] = useState(null)
   const [cursor, setCursor] = useState({ x: 0, y: 0 })
@@ -40,7 +43,7 @@ export default function Work() {
       </Reveal>
 
       <ul>
-        {projects.map((project, index) => (
+        {featured.map((project, index) => (
           <Reveal key={project.id} delay={index * 0.06} y={28}>
             <li>
               <Link

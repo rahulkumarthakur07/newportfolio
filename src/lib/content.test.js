@@ -20,16 +20,17 @@ describe('projects', () => {
   })
 
   it('finds a project by slug', () => {
-    expect(getProjectBySlug('slotani')?.name).toBe('Slotani')
+    expect(getProjectBySlug('prepswipe')?.name).toBe('PrepSwipe')
   })
 
-  it('lists Prepswipe as a React Native mobile app', () => {
-    const project = getProjectBySlug('prepswipe')
+  it('lists Recipe Mobile App as a React Native Expo app', () => {
+    const project = getProjectBySlug('recipe-mobile-app')
     expect(project?.tags).toContain('React Native')
     expect(project?.tech).toEqual(
-      expect.arrayContaining(['React Native', 'Expo', 'Nativewind', 'Redux', 'Prisma']),
+      expect.arrayContaining(['React Native', 'Expo', 'Expo Router']),
     )
-    expect(project?.tech).not.toContain('Vite')
+    expect(project?.demo).toContain('recepieapp.apk')
+    expect(project?.github).toContain('RecepieApp')
   })
 
   it('returns undefined for an unknown slug', () => {
@@ -38,13 +39,21 @@ describe('projects', () => {
 
   it('returns every project except the current one', () => {
     const others = getOtherProjects('prepswipe')
-    expect(others.map((project) => project.slug)).toEqual(['slotani', 'mindra', 'qr-menu'])
+    expect(others.map((project) => project.slug)).toEqual([
+      'recipe-mobile-app',
+      'yetiwise',
+      'animated-website',
+      'bakery-website',
+      'school-management-app',
+      'restromvp',
+      'tasknebula',
+    ])
   })
 
   it('uses separate detail and hover images, including remote links', () => {
-    const local = getProjectBySlug('slotani')
-    expect(getProjectImage(local)).toBe(local.image)
-    expect(getProjectImage(local, 'hover')).toBe(local.hoverImage)
+    const bakery = getProjectBySlug('bakery-website')
+    expect(getProjectImage(bakery)).toBe(bakery.image)
+    expect(getProjectImage(bakery, 'hover')).toBe(bakery.hoverImage)
 
     const remote = {
       image: 'https://example.com/detail.png',

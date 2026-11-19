@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
+import { useContactModal } from '../context/ContactModalContext'
 import { labels, nav, site } from '../lib/content'
 import { scrollToId } from '../lib/scroll'
-import WorkForm from './WorkForm'
 
 function SunIcon() {
   return (
@@ -79,10 +79,10 @@ function NavLink({ hash, label, onClick, className = '' }) {
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme()
+  const { openContact } = useContactModal()
   const location = useLocation()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
-  const [formOpen, setFormOpen] = useState(false)
   const isDark = theme === 'dark'
 
   function goToSection(event, hash) {
@@ -105,9 +105,10 @@ export default function Navbar() {
     if (location.hash) navigate('/', { replace: true })
   }
 
-  function openForm() {
+  function handleContact(event) {
+    event.preventDefault()
     setOpen(false)
-    setFormOpen(true)
+    openContact()
   }
 
   return (
@@ -126,7 +127,9 @@ export default function Navbar() {
             <NavLink
               key={link.hash}
               {...link}
-              onClick={(event) => goToSection(event, link.hash)}
+              onClick={(event) =>
+                link.hash === 'top' ? goHome(event) : goToSection(event, link.hash)
+              }
             />
           ))}
         </nav>
@@ -158,9 +161,9 @@ export default function Navbar() {
 
           <motion.button
             type="button"
-            onClick={openForm}
+            onClick={handleContact}
             className="hidden min-h-11 cursor-pointer items-center rounded-none border border-current px-7 py-2.5 text-[16px] tracking-[-0.01em] transition-colors duration-200 hover:bg-ink hover:text-canvas md:inline-flex dark:hover:bg-ink-dark dark:hover:text-canvas-dark"
-            aria-label="Open work form"
+            aria-label="Open contact form"
             whileTap={{ scale: 0.98 }}
           >
             {labels.workCta}
@@ -190,15 +193,17 @@ export default function Navbar() {
             {nav.map((link) => (
               <a
                 key={link.hash}
-                href={`/#${link.hash}`}
-                onClick={(event) => goToSection(event, link.hash)}
+                href={link.hash === 'top' ? '/' : `/#${link.hash}`}
+                onClick={(event) =>
+                  link.hash === 'top' ? goHome(event) : goToSection(event, link.hash)
+                }
               >
                 {link.label}
               </a>
             ))}
             <button
               type="button"
-              onClick={openForm}
+              onClick={handleContact}
               className="mt-1 inline-flex cursor-pointer items-center justify-center border border-current px-5 py-2.5 text-[15px]"
             >
               {labels.workCta}
@@ -206,8 +211,6 @@ export default function Navbar() {
           </motion.nav>
         )}
       </AnimatePresence>
-
-      <WorkForm open={formOpen} onClose={() => setFormOpen(false)} />
     </header>
   )
 }

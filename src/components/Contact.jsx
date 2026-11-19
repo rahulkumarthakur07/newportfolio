@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import Reveal from './Reveal'
+import { useContactModal } from '../context/ContactModalContext'
 import { labels, site } from '../lib/content'
 
 function SocialIcon({ name }) {
@@ -27,6 +28,8 @@ function SocialIcon({ name }) {
 }
 
 export default function Contact() {
+  const { openContact } = useContactModal()
+
   return (
     <section id="contact" className="px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
       <Reveal>
@@ -40,9 +43,10 @@ export default function Contact() {
       </Reveal>
 
       <Reveal delay={0.16}>
-        <motion.a
-          href={`mailto:${site.email}`}
-          className="mt-12 inline-flex items-center break-all text-[clamp(1.1rem,2.2vw,1.7rem)] tracking-[-0.03em]"
+        <motion.button
+          type="button"
+          onClick={openContact}
+          className="mt-12 inline-flex cursor-pointer items-center break-all text-left text-[clamp(1.1rem,2.2vw,1.7rem)] tracking-[-0.03em]"
           whileHover="hover"
           initial="rest"
         >
@@ -57,7 +61,7 @@ export default function Contact() {
           >
             →
           </motion.span>
-        </motion.a>
+        </motion.button>
         {site.showContactNote ? (
           <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-ink/70 dark:text-ink-dark/70">
             {site.contactNote}
